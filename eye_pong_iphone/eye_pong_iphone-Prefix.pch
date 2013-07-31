@@ -13,4 +13,9 @@
 #ifdef __OBJC__
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
+    #import <CoreData/CoreData.h>
+    #import <GameController/GameController.h>
+    #import <CoreGraphics/CoreGraphics.h>
+    #import <SpriteKit/SpriteKit.h>
+    #import "SPPGraphicsUtilities.h"
 #endif

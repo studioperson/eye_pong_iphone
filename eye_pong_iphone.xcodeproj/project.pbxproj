@@ -24,6 +24,17 @@
 		D51B893517A8029900B493B1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D51B891017A8029900B493B1 /* UIKit.framework */; };
 		D51B893D17A8029900B493B1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D51B893B17A8029900B493B1 /* InfoPlist.strings */; };
 		D51B893F17A8029900B493B1 /* eye_pong_iphoneTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D51B893E17A8029900B493B1 /* eye_pong_iphoneTests.m */; };
+		D51B894917A8053A00B493B1 /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D51B894817A8053A00B493B1 /* GameController.framework */; };
+		D51B894B17A8056300B493B1 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D51B894A17A8056300B493B1 /* CoreData.framework */; };
+		D51B894E17A806CA00B493B1 /* SPPCharacter.m in Sources */ = {isa = PBXBuildFile; fileRef = D51B894D17A806CA00B493B1 /* SPPCharacter.m */; };
+		D51B895117A80A6A00B493B1 /* SPPMultiplayerLayeredCharacterScene.m in Sources */ = {isa = PBXBuildFile; fileRef = D51B895017A80A6A00B493B1 /* SPPMultiplayerLayeredCharacterScene.m */; };
+		D51B895617A80B2400B493B1 /* SPPPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = D51B895517A80B2400B493B1 /* SPPPlayer.m */; };
+		D51B895917A80BBC00B493B1 /* SPPHeroCharacter.m in Sources */ = {isa = PBXBuildFile; fileRef = D51B895817A80BBC00B493B1 /* SPPHeroCharacter.m */; };
+		D51B895C17A8176400B493B1 /* SPPEnemyCharacter.m in Sources */ = {isa = PBXBuildFile; fileRef = D51B895B17A8176400B493B1 /* SPPEnemyCharacter.m */; };
+		D51B895F17A81B1900B493B1 /* SPPPadle.m in Sources */ = {isa = PBXBuildFile; fileRef = D51B895E17A81B1900B493B1 /* SPPPadle.m */; };
+		D51B896217A830D800B493B1 /* SPPAdventureScene.m in Sources */ = {isa = PBXBuildFile; fileRef = D51B896117A830D800B493B1 /* SPPAdventureScene.m */; };
+		D51B896617A837AE00B493B1 /* SPPGraphicsUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = D51B896517A837AE00B493B1 /* SPPGraphicsUtilities.m */; };
+		D51B896917A83DA200B493B1 /* SPPParallaxSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = D51B896817A83DA200B493B1 /* SPPParallaxSprite.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +71,26 @@
 		D51B893A17A8029900B493B1 /* eye_pong_iphoneTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "eye_pong_iphoneTests-Info.plist"; sourceTree = "<group>"; };
 		D51B893C17A8029900B493B1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D51B893E17A8029900B493B1 /* eye_pong_iphoneTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = eye_pong_iphoneTests.m; sourceTree = "<group>"; };
+		D51B894817A8053A00B493B1 /* GameController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameController.framework; path = System/Library/Frameworks/GameController.framework; sourceTree = SDKROOT; };
+		D51B894A17A8056300B493B1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		D51B894C17A806CA00B493B1 /* SPPCharacter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPPCharacter.h; sourceTree = "<group>"; };
+		D51B894D17A806CA00B493B1 /* SPPCharacter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPPCharacter.m; sourceTree = "<group>"; };
+		D51B894F17A80A6A00B493B1 /* SPPMultiplayerLayeredCharacterScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPPMultiplayerLayeredCharacterScene.h; sourceTree = "<group>"; };
+		D51B895017A80A6A00B493B1 /* SPPMultiplayerLayeredCharacterScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPPMultiplayerLayeredCharacterScene.m; sourceTree = "<group>"; };
+		D51B895417A80B2400B493B1 /* SPPPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPPPlayer.h; sourceTree = "<group>"; };
+		D51B895517A80B2400B493B1 /* SPPPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPPPlayer.m; sourceTree = "<group>"; };
+		D51B895717A80BBC00B493B1 /* SPPHeroCharacter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPPHeroCharacter.h; sourceTree = "<group>"; };
+		D51B895817A80BBC00B493B1 /* SPPHeroCharacter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPPHeroCharacter.m; sourceTree = "<group>"; };
+		D51B895A17A8176400B493B1 /* SPPEnemyCharacter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPPEnemyCharacter.h; sourceTree = "<group>"; };
+		D51B895B17A8176400B493B1 /* SPPEnemyCharacter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPPEnemyCharacter.m; sourceTree = "<group>"; };
+		D51B895D17A81B1900B493B1 /* SPPPadle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPPPadle.h; sourceTree = "<group>"; };
+		D51B895E17A81B1900B493B1 /* SPPPadle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPPPadle.m; sourceTree = "<group>"; };
+		D51B896017A830D800B493B1 /* SPPAdventureScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPPAdventureScene.h; sourceTree = "<group>"; };
+		D51B896117A830D800B493B1 /* SPPAdventureScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPPAdventureScene.m; sourceTree = "<group>"; };
+		D51B896417A837AE00B493B1 /* SPPGraphicsUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPPGraphicsUtilities.h; sourceTree = "<group>"; };
+		D51B896517A837AE00B493B1 /* SPPGraphicsUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPPGraphicsUtilities.m; sourceTree = "<group>"; };
+		D51B896717A83DA200B493B1 /* SPPParallaxSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPPParallaxSprite.h; sourceTree = "<group>"; };
+		D51B896817A83DA200B493B1 /* SPPParallaxSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPPParallaxSprite.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +98,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D51B894B17A8056300B493B1 /* CoreData.framework in Frameworks */,
+				D51B894917A8053A00B493B1 /* GameController.framework in Frameworks */,
 				D51B890F17A8029900B493B1 /* CoreGraphics.framework in Frameworks */,
 				D51B891117A8029900B493B1 /* UIKit.framework in Frameworks */,
 				D51B891317A8029900B493B1 /* SpriteKit.framework in Frameworks */,
@@ -109,6 +142,8 @@
 		D51B890B17A8029900B493B1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D51B894A17A8056300B493B1 /* CoreData.framework */,
+				D51B894817A8053A00B493B1 /* GameController.framework */,
 				D51B890C17A8029900B493B1 /* Foundation.framework */,
 				D51B890E17A8029900B493B1 /* CoreGraphics.framework */,
 				D51B891017A8029900B493B1 /* UIKit.framework */,
@@ -121,6 +156,9 @@
 		D51B891417A8029900B493B1 /* eye_pong_iphone */ = {
 			isa = PBXGroup;
 			children = (
+				D51B896317A8375C00B493B1 /* Utilities */,
+				D51B895317A80AA700B493B1 /* Sprites */,
+				D51B895217A80A8C00B493B1 /* Scene */,
 				D51B891D17A8029900B493B1 /* AppDelegate.h */,
 				D51B891E17A8029900B493B1 /* AppDelegate.m */,
 				D51B892017A8029900B493B1 /* Main.storyboard */,
@@ -162,6 +200,45 @@
 				D51B893B17A8029900B493B1 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D51B895217A80A8C00B493B1 /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				D51B894F17A80A6A00B493B1 /* SPPMultiplayerLayeredCharacterScene.h */,
+				D51B895017A80A6A00B493B1 /* SPPMultiplayerLayeredCharacterScene.m */,
+				D51B895417A80B2400B493B1 /* SPPPlayer.h */,
+				D51B895517A80B2400B493B1 /* SPPPlayer.m */,
+				D51B896017A830D800B493B1 /* SPPAdventureScene.h */,
+				D51B896117A830D800B493B1 /* SPPAdventureScene.m */,
+			);
+			name = Scene;
+			sourceTree = "<group>";
+		};
+		D51B895317A80AA700B493B1 /* Sprites */ = {
+			isa = PBXGroup;
+			children = (
+				D51B894C17A806CA00B493B1 /* SPPCharacter.h */,
+				D51B894D17A806CA00B493B1 /* SPPCharacter.m */,
+				D51B895717A80BBC00B493B1 /* SPPHeroCharacter.h */,
+				D51B895817A80BBC00B493B1 /* SPPHeroCharacter.m */,
+				D51B895A17A8176400B493B1 /* SPPEnemyCharacter.h */,
+				D51B895B17A8176400B493B1 /* SPPEnemyCharacter.m */,
+				D51B895D17A81B1900B493B1 /* SPPPadle.h */,
+				D51B895E17A81B1900B493B1 /* SPPPadle.m */,
+				D51B896717A83DA200B493B1 /* SPPParallaxSprite.h */,
+				D51B896817A83DA200B493B1 /* SPPParallaxSprite.m */,
+			);
+			name = Sprites;
+			sourceTree = "<group>";
+		};
+		D51B896317A8375C00B493B1 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				D51B896417A837AE00B493B1 /* SPPGraphicsUtilities.h */,
+				D51B896517A837AE00B493B1 /* SPPGraphicsUtilities.m */,
+			);
+			name = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -211,6 +288,9 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Tony Person";
 				TargetAttributes = {
+					D51B890817A8029900B493B1 = {
+						DevelopmentTeam = 3TC4T7PYGX;
+					};
 					D51B893017A8029900B493B1 = {
 						TestTargetID = D51B890817A8029900B493B1;
 					};
@@ -265,7 +345,16 @@
 				D51B892817A8029900B493B1 /* MyScene.m in Sources */,
 				D51B892517A8029900B493B1 /* ViewController.m in Sources */,
 				D51B891F17A8029900B493B1 /* AppDelegate.m in Sources */,
+				D51B895C17A8176400B493B1 /* SPPEnemyCharacter.m in Sources */,
+				D51B895917A80BBC00B493B1 /* SPPHeroCharacter.m in Sources */,
+				D51B896917A83DA200B493B1 /* SPPParallaxSprite.m in Sources */,
+				D51B896217A830D800B493B1 /* SPPAdventureScene.m in Sources */,
 				D51B891B17A8029900B493B1 /* main.m in Sources */,
+				D51B895617A80B2400B493B1 /* SPPPlayer.m in Sources */,
+				D51B895117A80A6A00B493B1 /* SPPMultiplayerLayeredCharacterScene.m in Sources */,
+				D51B896617A837AE00B493B1 /* SPPGraphicsUtilities.m in Sources */,
+				D51B895F17A81B1900B493B1 /* SPPPadle.m in Sources */,
+				D51B894E17A806CA00B493B1 /* SPPCharacter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -388,6 +477,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "eye_pong_iphone/eye_pong_iphone-Prefix.pch";
 				INFOPLIST_FILE = "eye_pong_iphone/eye_pong_iphone-Info.plist";
@@ -402,6 +492,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "eye_pong_iphone/eye_pong_iphone-Prefix.pch";
 				INFOPLIST_FILE = "eye_pong_iphone/eye_pong_iphone-Info.plist";
