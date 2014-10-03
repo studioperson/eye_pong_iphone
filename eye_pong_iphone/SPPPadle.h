@@ -10,4 +10,8 @@
 
 @interface SPPPadle : SPPHeroCharacter
 
+@property (nonatomic, weak) SPPPlayer *player;
+
+- (id)initAtPosition:(CGPoint)position withPlayer:(SPPPlayer *)player;
+
 @end

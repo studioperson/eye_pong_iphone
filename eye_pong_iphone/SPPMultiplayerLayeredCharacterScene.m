@@ -216,6 +216,80 @@
     [self updateHUDForPlayer:player];
 }
 
+#pragma mark - Characters
+- (SPPHeroCharacter *)addHeroForPlayer:(SPPPlayer *)player {
+    
+    NSAssert(![player isKindOfClass:[NSNull class]], @"Player should not be NSNull");
+    
+    if (player.hero && !player.hero.dying) {
+        [player.hero removeFromParent];
+    }
+    
+    CGPoint spawnPos = self.defaultSpawnPoint;
+    
+    SPPHeroCharacter *hero = [[player.heroClass alloc] initAtPosition:spawnPos withPlayer:player];
+    if (hero) {
+        SKEmitterNode *emitter = [[self sharedSpawnEmitter] copy];
+        emitter.position = spawnPos;
+        [self addNode:emitter atWorldLayer:SPPWorldLayerAboveCharacter];
+        SPPRunOneShotEmitter(emitter, 0.15f);
+        
+        [hero fadeIn:2.0f];
+        [hero addToScene:self];
+        [(NSMutableArray *)self.heroes addObject:hero];
+    }
+    player.hero = hero;
+    
+    return hero;
+}
+
+- (void)heroWasKilled:(SPPHeroCharacter *)hero {
+    SPPPlayer *player = hero.player;
+    
+    [(NSMutableArray *)self.heroes removeObject:hero];
+    
+#if TARGET_OS_IPHONE
+    // Disable touch movement, otherwise new hero will try to move to previously-touched location.
+    player.moveRequested = NO;
+#endif
+    
+    if (--player.livesLeft < 1) {
+        // In a real game, you'd want to end the game when there are no lives left.
+        return;
+    }
+    
+    [self updateHUDAfterHeroDeathForPlayer:hero.player];
+    
+    hero = [self addHeroForPlayer:hero.player];
+    [self centerWorldOnCharacter:hero];
+}
+
+- (void)addNode:(SKNode *)node atWorldLayer:(SPPWorldLayer)layer {
+    SKNode *layerNode = self.layers[layer];
+    [layerNode addChild:node];
+}
+
+#pragma mark - Mapping
+- (void)centerWorldOnPosition:(CGPoint)position {
+    [self.world setPosition:CGPointMake(-(position.x) + CGRectGetMidX(self.frame),
+                                        -(position.y) + CGRectGetMidY(self.frame))];
+    
+    self.worldMovedForUpdate = YES;
+}
+
+- (void)centerWorldOnCharacter:(SPPCharacter *)character {
+    [self centerWorldOnPosition:character.position];
+}
+
+
+- (float)distanceToWall:(CGPoint)pos0 from:(CGPoint)pos1 {
+    return 0.0f;
+}
+
+- (BOOL)canSee:(CGPoint)pos0 from:(CGPoint)pos1 {
+    return NO;
+}
+
 #pragma mark - Loop Update
 - (void)update:(NSTimeInterval)currentTime {
     // Handle time delta.
@@ -389,5 +463,142 @@
     }
 }
 #endif
+
+#pragma mark - Game Controllers
+- (void)configureGameControllers {
+    // Receive notifications when a controller connects or disconnects.
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gameControllerDidConnect:) name:GCControllerDidConnectNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(gameControllerDidDisconnect:) name:GCControllerDidDisconnectNotification object:nil];
+    
+    // Configure all the currently connected game controllers.
+    [self configureConnectedGameControllers];
+    
+    // And start looking for any wireless controllers.
+    [GCController startWirelessControllerDiscoveryWithCompletionHandler:^{
+#ifdef DEBUG
+        NSLog(@"Finished finding controllers");
+#endif
+    }];
+}
+
+- (void)configureConnectedGameControllers {
+    // First deal with the controllers previously set to a player.
+    for (GCController *controller in [GCController controllers]) {
+        NSInteger playerIndex = controller.playerIndex;
+        if (playerIndex == GCControllerPlayerIndexUnset) {
+            continue;
+        }
+        
+        [self assignPresetController:controller toIndex:playerIndex];
+    }
+    
+    // Now deal with the unset controllers.
+    for (GCController *controller in [GCController controllers]) {
+        NSInteger playerIndex = controller.playerIndex;
+        if (playerIndex != GCControllerPlayerIndexUnset) {
+            continue;
+        }
+        
+        [self assignUnknownController:controller];
+    }
+}
+
+- (void)gameControllerDidConnect:(NSNotification *)notification {
+    GCController *controller = notification.object;
+    NSLog(@"Connected game controller: %@", controller);
+    
+    NSInteger playerIndex = controller.playerIndex;
+    if (playerIndex == GCControllerPlayerIndexUnset) {
+        [self assignUnknownController:controller];
+    } else {
+        [self assignPresetController:controller toIndex:playerIndex];
+    }
+}
+
+- (void)gameControllerDidDisconnect:(NSNotification *)notification {
+    GCController *controller = notification.object;
+    for (SPPPlayer *player in self.players) {
+        if ((id)player == [NSNull null]) {
+            continue;
+        }
+        
+        if (player.controller == controller) {
+            player.controller = nil;
+        }
+    }
+    
+    NSLog(@"Disconnected game controller: %@", controller);
+}
+
+- (void)assignUnknownController:(GCController *)controller {
+    for (int playerIndex = 0; playerIndex < kNumPlayers; playerIndex++) {
+        SPPPlayer *player = self.players[playerIndex];
+        
+        if ((id)player == [NSNull null]) {
+            player = [[SPPPlayer alloc] init];
+            [(NSMutableArray *)self.players replaceObjectAtIndex:playerIndex withObject:player];
+            [self updateHUDForPlayer:player forState:SPPHUDStateConnected withMessage:@"CONTROLLER"];
+        }
+        
+        if (player.controller) {
+            continue;
+        }
+        
+        // Found an unlinked player.
+        controller.playerIndex = playerIndex;
+        [self configureController:controller forPlayer:player];
+        return;
+    }
+}
+
+- (void)assignPresetController:(GCController *)controller toIndex:(NSInteger)playerIndex {
+    // Check whether this index is free.
+    SPPPlayer *player = self.players[playerIndex];
+    if ((id)player == [NSNull null]) {
+        player = [[SPPPlayer alloc] init];
+        [(NSMutableArray *)self.players replaceObjectAtIndex:playerIndex withObject:player];
+        [self updateHUDForPlayer:player forState:SPPHUDStateConnected withMessage:@"CONTROLLER"];
+    }
+    
+    if (player.controller && player.controller != controller) {
+        // Taken by another controller so reassign to another player.
+        [self assignUnknownController:controller];
+        return;
+    }
+    
+    [self configureController:controller forPlayer:player];
+}
+
+- (void)configureController:(GCController *)controller forPlayer:(SPPPlayer *)player {
+    NSLog(@"Assigning %@ to player %@ [%lu]", controller.vendorName, player, (unsigned long)[self.players indexOfObject:player]);
+    
+    // Assign the controller to the player.
+    player.controller = controller;
+    
+    GCControllerDirectionPadValueChangedHandler dpadMoveHandler = ^(GCControllerDirectionPad *dpad, float xValue, float yValue) {
+        float length = hypotf(xValue, yValue);
+        if (length > 0.0f) {
+            float invLength = 1.0f / length;
+            player.heroMoveDirection = CGPointMake(xValue * invLength, yValue * invLength);
+        } else {
+            player.heroMoveDirection = CGPointZero;
+        }
+    };
+    
+    // Use either the dpad or the left thumbstick to move the character.
+    controller.extendedGamepad.leftThumbstick.valueChangedHandler = dpadMoveHandler;
+    controller.gamepad.dpad.valueChangedHandler = dpadMoveHandler;
+    
+    GCControllerButtonValueChangedHandler fireButtonHandler = ^(GCControllerButtonInput *button, float value, BOOL pressed) {
+        player.fireAction = pressed;
+    };
+    
+    controller.gamepad.buttonA.valueChangedHandler = fireButtonHandler;
+    controller.gamepad.buttonB.valueChangedHandler = fireButtonHandler;
+    
+    if (player != self.defaultPlayer && !player.hero) {
+        [self addHeroForPlayer:player];
+    }
+}
 
 @end

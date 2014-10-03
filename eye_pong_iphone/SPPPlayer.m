@@ -12,9 +12,12 @@
 
 #pragma mark - Initialization
 - (id)init {
+    
     self = [super init];
+    
     if (self) {
         _livesLeft = kStartLives;
+        /* Make a Custom USER-Modded Class */
         _heroClass = NSClassFromString(@"SPPPadle");
     }
     return self;

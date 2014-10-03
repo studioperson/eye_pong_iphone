@@ -36,7 +36,7 @@ typedef struct {
 
 typedef struct {
     uint8_t unusedA, bigTreeLocation, smallTreeLocation, unusedB;
-} APATreeMap;
+} SPPTreeMap;
 #pragma pack()
 
 typedef SPPDataMap *SPPDataMapRef;

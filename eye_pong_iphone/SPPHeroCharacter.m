@@ -9,6 +9,12 @@
 #import "SPPHeroCharacter.h"
 #import "SPPMultiplayerLayeredCharacterScene.h"
 
+#define kHeroProjectileSpeed 480.0
+#define kHeroProjectileLifetime 1.0 // 1.0 seconds until the projectile disappears
+#define kHeroProjectileFadeOutTime 0.6 // 0.6 seconds until the projectile starts to fade out
+
+NSString * const kPlayer = @"kPlayer";
+
 @implementation SPPHeroCharacter
 
 - (id)initAtPosition:(CGPoint)position withPlayer:(SPPPlayer *)player{
@@ -111,6 +117,44 @@ static SKEmitterNode *sSharedDamageEmitter = nil;
     return nil;
 }
 
+#pragma mark - Projectiles
+- (void)fireProjectile {
+    SPPMultiplayerLayeredCharacterScene *scene = [self characterScene];
+    
+    SKSpriteNode *projectile = [[self projectile] copy];
+    projectile.position = self.position;
+    projectile.zRotation = self.zRotation;
+    
+    SKEmitterNode *emitter = [[self projectileEmitter] copy];
+    emitter.targetNode = [self.scene childNodeWithName:@"world"];
+    [projectile addChild:emitter];
+    
+    [scene addNode:projectile atWorldLayer:SPPWorldLayerCharacter];
+    
+    CGFloat rot = self.zRotation;
+    
+    [projectile runAction:[SKAction moveByX:-sinf(rot)*kHeroProjectileSpeed*kHeroProjectileLifetime
+                                          y:cosf(rot)*kHeroProjectileSpeed*kHeroProjectileLifetime
+                                   duration:kHeroProjectileLifetime]];
+    
+    [projectile runAction:[SKAction sequence:@[[SKAction waitForDuration:kHeroProjectileFadeOutTime],
+                                               [SKAction fadeOutWithDuration:kHeroProjectileLifetime - kHeroProjectileFadeOutTime],
+                                               [SKAction removeFromParent]]]];
+    [projectile runAction:[self projectileSoundAction]];
+    
+    projectile.userData = [NSMutableDictionary dictionaryWithObject:self.player forKey:kPlayer];
+}
+
+- (SKSpriteNode *)projectile {
+    // Overridden by subclasses to return a suitable projectile.
+    return nil;
+}
+
+- (SKEmitterNode *)projectileEmitter {
+    // Overridden by subclasses to return the particle emitter to attach to the projectile.
+    return nil;
+}
+
+
 @end
 
-NSString * const kPlayer = @"kPlayer";

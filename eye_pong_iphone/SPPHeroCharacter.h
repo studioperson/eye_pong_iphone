@@ -24,3 +24,4 @@
 - (SKEmitterNode *)projectileEmitter;
 
 @end
+extern NSString * const kPlayer;
